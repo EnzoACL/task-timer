@@ -1,0 +1,34 @@
+<div class="title">
+    <h3>TASK CARD TIMER ORGANIZER</h3>
+</div>
+<div *ngIf="cards" class="card-grid">
+    <div *ngFor="let card of cards" class="card">
+        <div class="card-name">
+            {{card.name}}
+        </div>
+        <div class="card-timer">
+            {{card.time * 1000 | date:'H:mm:ss':'UTC'}}
+        </div>
+        <div class="card-actions">
+            • • •
+        </div>
+    </div>
+    <div class="add-task">
+        <span *ngIf="!cards.length">Create a new task -></span>
+        <button id="plusbtn" (click)="newTask()">&#43;</button>
+    </div>
+</div>
+<div *ngIf="modal" class="overlay">
+    <div class="modal">
+        <div>
+            <span>Create a task </span>
+        </div>
+        <div>
+            <input #cardTitle placeholder="Task name" type="text">
+        </div>
+        <div class="modal-buttons">
+            <button (click)="createTask(cardTitle.value)">Create</button>
+            <button (click)="cancelTask()">Cancel</button>
+        </div>
+    </div>    
+</div>
