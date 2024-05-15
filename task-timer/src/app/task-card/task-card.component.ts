@@ -9,18 +9,12 @@ export class TaskCardComponent {
 
   taskName!: string;
   taskTimer!: number;
-  cards: any[] = [
-  {
-    index: 0,
-    name: 'Test task 1',
-    time: 120,
-  },
-  {
-    index: 1,
-    name: 'Test task 2',
-    time: 600,
-  }
-];
+  cards: {
+    id: number;
+    name: string;
+    time: number;
+    active: boolean;
+  }[] = [];
   modal: boolean = false;
   cardTitle: string = '';
 
@@ -35,9 +29,10 @@ export class TaskCardComponent {
     if (cardTitle) {
       this.cards.push(
         {
-          index: this.cards.length,
+          id: this.cards.length,
           name: cardTitle,
           time: 0,
+          active: false,
         }
       );
       this.modal = false;
@@ -51,4 +46,23 @@ export class TaskCardComponent {
     this.modal = false;
   }
 
+  buttonActionPlay(index: number) {
+    this.cards[index].active = true;
+    let cardIntervals = setInterval(()=>{
+      this.cards[index]?.active  ? this.addSecond(index) : clearInterval(cardIntervals);
+    },1000);
+  }
+  buttonActionStop(index: number) {
+    this.cards[index].active = false;      
+  }
+
+  buttonActionDelete(index: number) {
+    console.log(index);
+    console.log(this.cards[index]);
+    this.cards.splice(index,1);
+  }
+
+  addSecond(index: number) {
+    this.cards[index].time++
+  }
 }
