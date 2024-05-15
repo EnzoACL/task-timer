@@ -58,6 +58,12 @@
         div {
             margin: 8px;
         }
+        .card-actions {
+            display: flex;
+            button {
+                margin-left: 10px;
+            }            
+        }
     }
 }
 .overlay {
@@ -82,8 +88,8 @@
         transform: translate(-50%, -50%);
         background-color: white;
         div {
-            margin-bottom: 10px;
-            margin-top: 10px;
+            padding-bottom: 15px;
+            padding-top: 15px;
         }
         .modal-buttons {
             button {
