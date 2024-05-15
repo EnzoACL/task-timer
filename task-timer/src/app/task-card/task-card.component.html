@@ -1,20 +1,33 @@
 <div class="title">
-    <h3>TASK CARD TIMER ORGANIZER</h3>
+    <h3>TASK CARDS TIMER</h3>
 </div>
 <div *ngIf="cards" class="card-grid">
-    <div *ngFor="let card of cards" class="card">
-        <div class="card-name">
-            {{card.name}}
+    @for (card of cards; track $index) {
+        <div class="card">
+            <div class="card-name">
+                {{card.name}}
+            </div>
+            <div class="card-timer">
+                {{card.time * 1000 | date:'H:mm:ss':'UTC'}}
+            </div>
+            <div class="card-actions">
+                @if (!card.active) {
+                    <button type="button"(click)="buttonActionPlay($index)">
+                        <span class="glyphicon glyphicon-play"></span> ► START 
+                    </button>
+                } @else {
+                    <button type="button"(click)="buttonActionStop($index)">
+                        <span class="glyphicon glyphicon-play"></span> PAUSE
+                    </button>
+                }
+                <button type="button"(click)="buttonActionDelete($index)">
+                    <span class="glyphicon glyphicon-play"></span> DELETE
+                </button>
+            </div>
         </div>
-        <div class="card-timer">
-            {{card.time * 1000 | date:'H:mm:ss':'UTC'}}
-        </div>
-        <div class="card-actions">
-            • • •
-        </div>
-    </div>
+    }
     <div class="add-task">
-        <span *ngIf="!cards.length">Create a new task -></span>
+        <h2 *ngIf="!cards.length">CREATE A NEW TASK!</h2>
         <button id="plusbtn" (click)="newTask()">&#43;</button>
     </div>
 </div>
